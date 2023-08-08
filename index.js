@@ -16,11 +16,22 @@ const socketIO = require("socket.io")(http, {
 });
 
 socketIO.on("connect", (socket) => {
+  // 접속한 클라이언트
   console.log(`⚡: ${socket.id} user just connected!`);
 
   socket.on("moved", (data) => {
     console.log(data);
     socketIO.emit("point", data);
+  });
+
+  socket.on("title-changes", (data) => {
+    console.log(data);
+    socketIO.emit("data", data);
+  });
+
+  socket.on("image-changes", (data) => {
+    // console.log("🗓️", data);
+    socketIO.emit("images", data);
   });
 
   socket.on("disconnect", () => {
