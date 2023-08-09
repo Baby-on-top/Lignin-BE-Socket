@@ -9,11 +9,13 @@ app.use(express.json());
 const http = require("http").Server(app);
 const cors = require("cors");
 
-const socketIO = require("socket.io")(http, {
-  cors: {
-    origin: "https://board.lignin.today",
-  },
-});
+app.use(cors());
+
+// const socketIO = require("socket.io")(http, {
+//   cors: {
+//     origin: "https://board.lignin.today",
+//   },
+// });
 
 socketIO.on("connect", (socket) => {
   // 접속한 클라이언트
@@ -44,7 +46,7 @@ app.use(cors());
 
 app.get("/api", (req, res) => {
   res.json({
-    message: "Hello world",
+    message: "Hello world~~",
   });
 });
 
