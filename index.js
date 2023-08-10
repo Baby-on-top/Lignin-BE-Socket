@@ -8,6 +8,7 @@ app.use(express.json());
 //New imports
 const http = require("http").Server(app);
 const cors = require("cors");
+const { log } = require("console");
 
 const socketIO = require("socket.io")(http, {
   cors: {
@@ -37,6 +38,18 @@ socketIO.on("connect", (socket) => {
   socket.on("disconnect", () => {
     socket.disconnect();
     console.log("🔥: A user disconnected");
+  });
+
+  // 유저 상태
+
+  socket.on("status-in", (data) => {
+    console.log("🚨🚨 들어온 status", data);
+    socketIO.emit("status-in-data", data);
+  });
+
+  socket.on("status-out", (data) => {
+    console.log("🎋🎋 나간 status", data);
+    socketIO.emit("status-out-data", data);
   });
 });
 
